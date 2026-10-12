@@ -28,7 +28,7 @@ in `src/apps.test.ts`, which is there so a removed or mistyped app is noticed.
 
 ## Deploy
 
-Pushing to `main` runs CI and publishes `ghcr.io/iritmaximus/wasab:latest`. Argo CD image-updater
+Pushing to `main` runs CI and publishes `registry.pumppi.dev/wasab:latest`. Argo CD image-updater
 picks up the new digest and rolls out `k8s-pumppi/wasab`. The container serves on port 8080 with a
 `/health` endpoint for probes.
 
