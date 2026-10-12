@@ -46,10 +46,13 @@ test('clicking anywhere on a card follows its link', async ({ page }) => {
 
 test('search filters and Escape resets', async ({ page }) => {
   const search = page.getByRole('searchbox', { name: 'Search apps' });
-  // the shortcut is registered in an effect that can land after the load event
+  // the shortcut is registered in an effect that can land after the load event;
+  // only press again while unfocused, a "/" typed into the box would fail the next check
   await expect(async () => {
-    await page.keyboard.press('/');
-    await expect(search).toBeFocused({ timeout: 100 });
+    if (!(await search.evaluate((el) => el === document.activeElement))) {
+      await page.keyboard.press('/');
+    }
+    await expect(search).toBeFocused({ timeout: 500 });
   }).toPass();
   await expect(search).toHaveValue('');
 
